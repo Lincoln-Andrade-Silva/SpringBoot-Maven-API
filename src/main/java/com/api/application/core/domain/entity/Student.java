@@ -1,6 +1,5 @@
 package com.api.application.core.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.Where;
 
@@ -31,7 +30,6 @@ public class Student implements Serializable {
     @Column(name="birth_date", nullable = false)
     private Date birthDate;
 
-    @JsonIgnore
     @ManyToOne(targetEntity = Classroom.class)
     @JoinColumn(name="classroom_id", nullable = false)
     private Classroom classroom;
