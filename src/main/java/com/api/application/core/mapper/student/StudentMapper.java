@@ -1,12 +1,11 @@
-package com.api.application.core.mapper;
+package com.api.application.core.mapper.student;
 
-import com.api.application.core.domain.dto.StudentRequest;
-import com.api.application.core.domain.dto.StudentResponse;
+import com.api.application.core.domain.dto.student.StudentRequest;
+import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.domain.entity.Student;
 
 public class StudentMapper {
-    private StudentMapper(){
-    }
+    private StudentMapper(){}
 
     public static Student createStudentFromRequest(StudentRequest request){
         Student student =  new Student();

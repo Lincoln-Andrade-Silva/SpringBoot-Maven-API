@@ -1,9 +1,9 @@
-package com.api.application.core.service;
+package com.api.application.core.service.student;
 
-import com.api.application.core.domain.dto.StudentRequest;
-import com.api.application.core.domain.dto.StudentResponse;
+import com.api.application.core.domain.dto.student.StudentRequest;
+import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.domain.entity.Student;
-import com.api.application.core.mapper.StudentMapper;
+import com.api.application.core.mapper.student.StudentMapper;
 import com.api.application.core.persistance.repository.student.StudentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

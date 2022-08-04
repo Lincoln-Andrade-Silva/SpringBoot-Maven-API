@@ -1,8 +1,8 @@
 package com.api.application.controller.student;
 
-import com.api.application.core.domain.dto.StudentRequest;
-import com.api.application.core.domain.dto.StudentResponse;
-import com.api.application.core.service.StudentService;
+import com.api.application.core.domain.dto.student.StudentRequest;
+import com.api.application.core.domain.dto.student.StudentResponse;
+import com.api.application.core.service.student.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
