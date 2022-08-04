@@ -3,6 +3,7 @@ package com.api.application.core.mapper.student;
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.domain.entity.Student;
+import com.api.application.core.mapper.classroom.ClassroomMapper;
 
 public class StudentMapper {
     private StudentMapper(){}
@@ -12,7 +13,19 @@ public class StudentMapper {
         student.setName(request.getName());
         student.setLastName(request.getLastName());
         student.setBirthDate(request.getBirthDate());
-        student.setClassroom(request.getClassroom());
+        student.setClassroom(ClassroomMapper
+                .createClassroomFromDTO(request.getClassroom()));
+
+        return student;
+    }
+
+    public static Student createStudentFromResponse(StudentResponse response){
+        Student student =  new Student();
+        student.setName(response.getName());
+        student.setLastName(response.getLastName());
+        student.setBirthDate(response.getBirthDate());
+        student.setClassroom(ClassroomMapper
+                .createClassroomFromDTO(response.getClassroom()));
 
         return student;
     }
@@ -22,8 +35,10 @@ public class StudentMapper {
         response.setName(student.getName());
         response.setLastName(student.getLastName());
         response.setBirthDate(student.getBirthDate());
-        response.setClassroom(student.getClassroom());
+        response.setClassroom(ClassroomMapper
+                .createClassroomDtoFromEntity(student.getClassroom()));
 
         return response;
     }
+
 }

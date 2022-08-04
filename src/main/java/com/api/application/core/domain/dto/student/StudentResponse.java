@@ -1,5 +1,6 @@
 package com.api.application.core.domain.dto.student;
 
+import com.api.application.core.domain.dto.classroom.ClassroomDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,5 +19,5 @@ public class StudentResponse {
 
     private Date birthDate;
 
-    private String classroom;
+    private ClassroomDTO classroom;
 }
