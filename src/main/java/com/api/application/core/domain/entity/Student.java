@@ -1,16 +1,17 @@
 package com.api.application.core.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="tb_student")
@@ -30,6 +31,11 @@ public class Student implements Serializable {
     @Column(name="birth_date", nullable = false)
     private Date birthDate;
 
-    @Column(name="classroom", nullable = false)
-    private String classroom;
+    @JsonIgnore
+    @ManyToOne(targetEntity = Classroom.class)
+    @JoinColumn(name="classroom_id", nullable = false)
+    private Classroom classroom;
+
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted = false;
 }

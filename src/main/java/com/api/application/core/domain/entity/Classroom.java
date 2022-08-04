@@ -1,17 +1,15 @@
 package com.api.application.core.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.Where;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="tb_classroom")
@@ -23,4 +21,8 @@ public class Classroom  {
 
     @Column(name = "class_code", nullable = false)
     private String classCode;
+
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted = false;
 }
+
