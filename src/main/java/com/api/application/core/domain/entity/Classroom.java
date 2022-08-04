@@ -4,6 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name="tb_classroom")
 @Where(clause = "deleted=false")
-public class Classroom  {
+public class Classroom  implements Serializable {
     @Id
     @Column(name = "id", unique = true, nullable = false)
     private Long id;
