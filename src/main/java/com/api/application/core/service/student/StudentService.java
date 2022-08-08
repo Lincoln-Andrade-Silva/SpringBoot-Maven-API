@@ -8,6 +8,8 @@ import com.api.application.core.persistance.repository.student.StudentRepository
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @AllArgsConstructor
 public class StudentService {
@@ -18,6 +20,15 @@ public class StudentService {
 
         studentRepository.save(student);
 
+        StudentResponse response = StudentMapper.createStudentResponseFromEntity(student);
+        return response;
+    }
+
+    public StudentResponse deleteStudent(Long id) {
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        Student entity = optionalStudent.get();
+        Student student = StudentMapper.deleteStudent(entity);
+        studentRepository.save(student);
         StudentResponse response = StudentMapper.createStudentResponseFromEntity(student);
         return response;
     }
