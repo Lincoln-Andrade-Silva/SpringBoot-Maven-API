@@ -6,10 +6,17 @@ import com.api.application.core.domain.entity.Student;
 import com.api.application.core.mapper.classroom.ClassroomMapper;
 
 public class StudentMapper {
-    private StudentMapper(){}
+    private StudentMapper() {
+    }
 
-    public static Student createStudentFromRequest(StudentRequest request){
-        Student student =  new Student();
+    public static Student deleteStudent(Student student) {
+        student.setDeleted(Boolean.TRUE);
+
+        return student;
+    }
+
+    public static Student createStudentFromRequest(StudentRequest request) {
+        Student student = new Student();
         student.setName(request.getName());
         student.setLastName(request.getLastName());
         student.setBirthDate(request.getBirthDate());
@@ -19,8 +26,8 @@ public class StudentMapper {
         return student;
     }
 
-    public static Student createStudentFromResponse(StudentResponse response){
-        Student student =  new Student();
+    public static Student createStudentFromResponse(StudentResponse response) {
+        Student student = new Student();
         student.setName(response.getName());
         student.setLastName(response.getLastName());
         student.setBirthDate(response.getBirthDate());
@@ -30,8 +37,8 @@ public class StudentMapper {
         return student;
     }
 
-    public static StudentResponse createStudentResponseFromEntity(Student student){
-        StudentResponse response =  new StudentResponse();
+    public static StudentResponse createStudentResponseFromEntity(Student student) {
+        StudentResponse response = new StudentResponse();
         response.setName(student.getName());
         response.setLastName(student.getLastName());
         response.setBirthDate(student.getBirthDate());
