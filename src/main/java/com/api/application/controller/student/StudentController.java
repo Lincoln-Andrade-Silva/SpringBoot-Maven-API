@@ -12,15 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(value = "/student")
 public class StudentController {
-    private static final String MINIMAL = "Minimal";
-    private static final String LOW = "low";
+    private static final String LOW = "Low";
     private static final String MODERATE = "Moderate";
-    private static final String HIGH = "Moderate";
+    private static final String HIGH = "High";
     private static final String VERY_HIGH = "Very High";
 
     @Autowired
@@ -38,7 +38,7 @@ public class StudentController {
     )
     public DataResponse<StudentResponse> create(
             @RequestBody StudentRequest bodyRequest,
-            @RequestHeader(name = "locale", required = true) String locale,
+            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
@@ -65,20 +65,26 @@ public class StudentController {
             summary = "Delete Student",
             description = "Delete a Student"
     )
-    @DeleteMapping(
-            value = "/delete/{id}",
-            consumes = "application/json",
-            produces = "application/json"
-    )
-    public StudentResponse delete(
-            @PathVariable Long id,
+    @DeleteMapping(value = "/delete/{id}")
+    public DataResponse<StudentResponse> delete(
+            @PathVariable(value = "id") Long id,
+            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
-        StudentResponse response = new StudentResponse();
+
+        DataResponse<StudentResponse> response = new DataResponse<>();
+
         try {
-            response = studentService.deleteStudent(id);
-        } catch (Exception ex) {
-            servletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response = studentService.deleteStudent(id, locale);
+            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+            servletResponse.setStatus(HttpServletResponse.SC_OK);
+
+            return response;
+
+        } catch (ApplicationBusinessException error) {
+            response.setResponse(error);
+            response.setSeverity(LOW);
+            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
 
         return response;

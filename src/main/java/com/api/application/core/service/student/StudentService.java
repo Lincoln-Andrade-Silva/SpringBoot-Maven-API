@@ -44,12 +44,20 @@ public class StudentService {
         return dataResponse;
     }
 
-    public StudentResponse deleteStudent(Long id) {
+    public DataResponse<StudentResponse> deleteStudent(Long id, String locale)
+            throws ApplicationBusinessException {
+
+        DataResponse<StudentResponse> dataResponse = new DataResponse<>();
+
         Optional<Student> optionalStudent = studentRepository.findById(id);
-        Student entity = optionalStudent.get();
+        Student entity = StudentValidator.validateOptional(optionalStudent, messageSource, locale);
         Student student = StudentMapper.deleteStudent(entity);
         studentRepository.save(student);
         StudentResponse response = StudentMapper.createStudentResponseFromEntity(student);
-        return response;
+
+        dataResponse.setData(response);
+        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.name());
+
+        return dataResponse;
     }
 }

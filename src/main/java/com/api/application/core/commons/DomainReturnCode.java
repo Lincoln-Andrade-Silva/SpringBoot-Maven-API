@@ -10,10 +10,12 @@ public enum DomainReturnCode implements IDomainReturnCode {
         Operations
      */
     SUCCESSFUL_OPERATION("Operation concluded with success"),
+    ERROR_OPERATION("An error occurred during the operation"),
 
     /*
       Student
    */
+    STUDENT_NOT_FOUND("Student not found in database"),
     NAME_IS_NULL("Name field is a mandatory field"),
     LAST_NAME_IS_NULL("Last Name field is a mandatory field"),
     CLASSROOM_ID_IS_NULL("Classroom id field is a mandatory field"),
