@@ -10,8 +10,8 @@ public class Response implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 8927944169026414109L;
-    private String severity;
     private String message;
+    private String severity;
     private String input;
     private String version;
 
@@ -51,12 +51,13 @@ public class Response implements Serializable {
     }
 
     public void setResponse(ApplicationBusinessException e) {
-        if (e.getSeverity() != null) {
-            this.severity = e.getSeverity().toString();
-        }
 
         if (e.getMessage() != null) {
             this.message = e.getMessage();
+        }
+
+        if (e.getSeverity() != null) {
+            this.severity = e.getSeverity().toString();
         }
 
         if (e.getInput() != null) {

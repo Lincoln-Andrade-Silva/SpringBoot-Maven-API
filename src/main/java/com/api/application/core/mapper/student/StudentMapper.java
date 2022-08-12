@@ -39,6 +39,7 @@ public class StudentMapper {
 
     public static StudentResponse createStudentResponseFromEntity(Student student) {
         StudentResponse response = new StudentResponse();
+        response.setId(student.getId());
         response.setName(student.getName());
         response.setLastName(student.getLastName());
         response.setBirthDate(student.getBirthDate());

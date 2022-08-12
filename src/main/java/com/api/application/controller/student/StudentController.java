@@ -27,9 +27,38 @@ public class StudentController {
     StudentService studentService;
 
     @Operation(
+            summary = "Get Student by Id",
+            description = "Get Student by Id"
+    )
+    @GetMapping(
+            value = "{id}"
+    )
+    public DataResponse<StudentResponse> get(
+            @PathVariable(value = "id") Long id,
+            @RequestHeader(name = "locale") String locale,
+            HttpServletResponse servletResponse
+    ) {
+
+        DataResponse<StudentResponse> response = new DataResponse<>();
+
+        try {
+            response = studentService.getStudentById(id, locale);
+            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+            servletResponse.setStatus(HttpServletResponse.SC_OK);
+            return response;
+
+        } catch (ApplicationBusinessException error) {
+            response.setResponse(error);
+            response.setSeverity(LOW);
+            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
+        return response;
+    }
+
+    @Operation(
             summary = "Create a new Student",
             description = "Create a new Student"
-
     )
     @PostMapping(
             value = "/create",

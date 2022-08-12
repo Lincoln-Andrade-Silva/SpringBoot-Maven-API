@@ -13,6 +13,8 @@ import com.api.application.core.commons.DomainReturnCode;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +26,21 @@ public class StudentService {
     public StudentService(StudentRepository studentRepository, MessageSource messageSource) {
         this.studentRepository = studentRepository;
         this.messageSource = messageSource;
+    }
+
+    public DataResponse<StudentResponse> getStudentById(Long id, String locale) throws ApplicationBusinessException {
+
+        DataResponse<StudentResponse> dataResponse = new DataResponse<>();
+
+        Optional<Student> optionalStudent = studentRepository.findById(id);
+        Student student = StudentValidator.validateOptional(optionalStudent, messageSource, locale);
+
+        StudentResponse studentResponse = StudentMapper.createStudentResponseFromEntity(student);
+
+        dataResponse.setData(studentResponse);
+        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+
+        return dataResponse;
     }
 
     public DataResponse<StudentResponse> createStudent(DataRequest<StudentRequest> request, String locale)
@@ -39,7 +56,7 @@ public class StudentService {
         StudentResponse studentResponse = StudentMapper.createStudentResponseFromEntity(student);
 
         dataResponse.setData(studentResponse);
-        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.name());
+        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
 
         return dataResponse;
     }
@@ -56,7 +73,7 @@ public class StudentService {
         StudentResponse response = StudentMapper.createStudentResponseFromEntity(student);
 
         dataResponse.setData(response);
-        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.name());
+        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
 
         return dataResponse;
     }
