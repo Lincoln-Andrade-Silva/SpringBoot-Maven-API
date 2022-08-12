@@ -6,6 +6,7 @@ import com.api.application.core.domain.entity.Student;
 import com.api.application.core.domain.validator.StudentValidator;
 import com.api.application.core.mapper.student.StudentMapper;
 import com.api.application.core.persistance.repository.student.StudentRepository;
+import com.api.application.utils.core.responses.DataListResponse;
 import com.api.application.utils.core.responses.DataResponse;
 import com.api.application.utils.core.resquests.DataRequest;
 import com.api.application.utils.exeption.ApplicationBusinessException;
@@ -28,6 +29,24 @@ public class StudentService {
         this.messageSource = messageSource;
     }
 
+
+    public DataListResponse<StudentResponse> list(String locale) throws ApplicationBusinessException {
+        DataListResponse<StudentResponse> dataResponses = new DataListResponse<>();
+        List<StudentResponse> studentResponses = new ArrayList<>();
+
+        List<Student> studentList = studentRepository.findAll();
+        StudentValidator.validateList(studentList, messageSource, locale);
+
+        for (Student student : studentList) {
+            StudentResponse studentResponse = StudentMapper.createStudentResponseFromEntity(student);
+            studentResponses.add(studentResponse);
+        }
+
+        dataResponses.setData(studentResponses);
+
+        return dataResponses;
+    }
+
     public DataResponse<StudentResponse> getStudentById(Long id, String locale) throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
@@ -38,7 +57,6 @@ public class StudentService {
         StudentResponse studentResponse = StudentMapper.createStudentResponseFromEntity(student);
 
         dataResponse.setData(studentResponse);
-        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
 
         return dataResponse;
     }
@@ -56,7 +74,6 @@ public class StudentService {
         StudentResponse studentResponse = StudentMapper.createStudentResponseFromEntity(student);
 
         dataResponse.setData(studentResponse);
-        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
 
         return dataResponse;
     }
@@ -73,7 +90,6 @@ public class StudentService {
         StudentResponse response = StudentMapper.createStudentResponseFromEntity(student);
 
         dataResponse.setData(response);
-        dataResponse.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
 
         return dataResponse;
     }

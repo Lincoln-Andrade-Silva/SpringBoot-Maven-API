@@ -20,7 +20,8 @@ public enum DomainReturnCode implements IDomainReturnCode {
     LAST_NAME_IS_NULL("Last Name field is a mandatory field"),
     CLASSROOM_ID_IS_NULL("Classroom id field is a mandatory field"),
     BIRTH_DATE_IS_NULL("Birthdate field is a mandatory field"),
-    CLASSROOM_CODE_IS_NULL("Classroom field is a mandatory field");
+    CLASSROOM_CODE_IS_NULL("Classroom field is a mandatory field"),
+    STUDENT_LIST_ARE_EMPTY("Student registers not found in database");
 
      /*
       Classroom

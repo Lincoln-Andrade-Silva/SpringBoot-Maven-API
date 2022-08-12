@@ -3,6 +3,7 @@ package com.api.application.controller.student;
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.service.student.StudentService;
+import com.api.application.utils.core.responses.DataListResponse;
 import com.api.application.utils.core.responses.DataResponse;
 import com.api.application.utils.core.resquests.DataRequest;
 import com.api.application.utils.exeption.ApplicationBusinessException;
@@ -25,6 +26,36 @@ public class StudentController {
 
     @Autowired
     StudentService studentService;
+
+    @Operation(
+            summary = "Get Student by Id",
+            description = "Get Student by Id"
+    )
+    @GetMapping(
+            value = ""
+    )
+    public DataListResponse<StudentResponse> list(
+            @RequestHeader(name = "locale") String locale,
+            HttpServletResponse servletResponse
+    ) {
+
+        DataListResponse<StudentResponse> response = new DataListResponse<>();
+
+        try {
+            response = studentService.list(locale);
+            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+            servletResponse.setStatus(HttpServletResponse.SC_OK);
+            return response;
+
+        } catch (ApplicationBusinessException error) {
+            response.setResponse(error);
+            response.setSeverity(LOW);
+            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
+
+        return response;
+    }
+
 
     @Operation(
             summary = "Get Student by Id",

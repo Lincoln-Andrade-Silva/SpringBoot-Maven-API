@@ -7,6 +7,7 @@ import com.api.application.utils.exeption.ApplicationBusinessException;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -14,6 +15,15 @@ import java.util.Optional;
 public class StudentValidator {
 
     private StudentValidator() {
+    }
+
+    public static void validateList(List<Student> studentList, MessageSource messageSource, String locale)
+            throws ApplicationBusinessException {
+        if (studentList.isEmpty()) {
+
+            throw new ApplicationBusinessException(DomainReturnCode.STUDENT_LIST_ARE_EMPTY.name(),
+                    DomainReturnCode.STUDENT_LIST_ARE_EMPTY.getTranslatedDescription(messageSource, locale));
+        }
     }
 
     public static Student validateOptional(Optional<Student> student, MessageSource messageSource, String locale)
