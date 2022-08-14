@@ -20,7 +20,7 @@ public class StudentMapper {
         student.setName(request.getName());
         student.setLastName(request.getLastName());
         student.setBirthDate(request.getBirthDate());
-        student.setClassroom(ClassroomMapper.createClassroomFromDTO(request.getClassroom()));
+        student.setClassroom(ClassroomMapper.createClassroomFromDTOWithId(request.getClassroom()));
 
         return student;
     }

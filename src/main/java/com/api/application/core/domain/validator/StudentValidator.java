@@ -56,4 +56,13 @@ public class StudentValidator {
                     DomainReturnCode.BIRTH_DATE_IS_NULL.getTranslatedDescription(messageSource, locale));
         }
     }
+
+    public static void validateStudentExists(List<Student> studentFromDB, MessageSource messageSource, String locale)
+            throws ApplicationBusinessException {
+
+        if (!studentFromDB.isEmpty()) {
+            throw new ApplicationBusinessException(DomainReturnCode.STUDENT_EXISTS.name(),
+                    DomainReturnCode.STUDENT_EXISTS.getTranslatedDescription(messageSource, locale));
+        }
+    }
 }

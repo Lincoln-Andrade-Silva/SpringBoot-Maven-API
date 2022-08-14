@@ -16,6 +16,7 @@ import java.util.Date;
 @Table(name="tb_student")
 @Where(clause = "deleted=false")
 public class Student implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

@@ -2,9 +2,12 @@ package com.api.application.core.service.student;
 
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
+import com.api.application.core.domain.entity.Classroom;
 import com.api.application.core.domain.entity.Student;
+import com.api.application.core.domain.validator.ClassroomValidator;
 import com.api.application.core.domain.validator.StudentValidator;
 import com.api.application.core.mapper.student.StudentMapper;
+import com.api.application.core.persistance.repository.classroom.ClassroomRepository;
 import com.api.application.core.persistance.repository.student.StudentRepository;
 import com.api.application.core.utils.core.responses.DataListResponse;
 import com.api.application.core.utils.core.responses.DataResponse;
@@ -13,7 +16,6 @@ import com.api.application.core.utils.exeption.ApplicationBusinessException;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,10 +24,13 @@ import java.util.Optional;
 public class StudentService {
     private final StudentRepository studentRepository;
 
+    private final ClassroomRepository classroomRepository;
+
     private final MessageSource messageSource;
 
-    public StudentService(StudentRepository studentRepository, MessageSource messageSource) {
+    public StudentService(StudentRepository studentRepository, ClassroomRepository classroomRepository, MessageSource messageSource) {
         this.studentRepository = studentRepository;
+        this.classroomRepository = classroomRepository;
         this.messageSource = messageSource;
     }
 
@@ -66,6 +71,14 @@ public class StudentService {
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
         StudentValidator.validateStudentRequest(request.getData(), messageSource, locale);
+
+        List<Student> studentFromDB = studentRepository.findByStudent(request.getData().getName(), request.getData().getLastName());
+        StudentValidator.validateStudentExists(studentFromDB, messageSource, locale);
+
+        Optional<Classroom> classroomFromDB = classroomRepository.findById(request.getData().getClassroom().getId());
+        Classroom classroom = ClassroomValidator.validateOptional(classroomFromDB, messageSource, locale);
+
+
         Student student = StudentMapper.createStudentFromRequest(request.getData());
         studentRepository.save(student);
 
