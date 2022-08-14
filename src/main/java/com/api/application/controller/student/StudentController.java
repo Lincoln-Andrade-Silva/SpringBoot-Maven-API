@@ -1,11 +1,14 @@
 package com.api.application.controller.student;
 
+import com.api.application.core.domain.dto.student.StudentFilterRequest;
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.service.student.StudentService;
 import com.api.application.core.utils.core.responses.DataListResponse;
 import com.api.application.core.utils.core.responses.DataResponse;
 import com.api.application.core.utils.core.resquests.DataRequest;
+import com.api.application.core.utils.core.resquests.FilterRequest;
+import com.api.application.core.utils.core.resquests.PaginationRequest;
 import com.api.application.core.utils.exeption.ApplicationBusinessException;
 import com.api.application.core.commons.DomainReturnCode;
 import io.swagger.v3.oas.annotations.Operation;
@@ -36,13 +39,24 @@ public class StudentController {
     )
     public DataListResponse<StudentResponse> list(
             @RequestHeader(name = "locale") String locale,
+            @RequestParam(name = "strSearch", required = false) String strSearch,
+            @RequestParam(name = "page", required = false) Integer page,
+            @RequestParam(name = "pageSize", required = false) Integer pageSize,
+            @RequestParam(name = "sortByAttribute", required = false) String sortByAttribute,
+            @RequestParam(name = "ascendingOrder", required = false) Boolean ascendingOrder,
             HttpServletResponse servletResponse
     ) {
 
         DataListResponse<StudentResponse> response = new DataListResponse<>();
 
+        FilterRequest<StudentFilterRequest> filter = new FilterRequest<>(strSearch, locale);
+        StudentFilterRequest pricingFilterRequest = new StudentFilterRequest();
+        filter.setData(pricingFilterRequest);
+
+        PaginationRequest pagination = new PaginationRequest(page, pageSize, sortByAttribute, ascendingOrder);
+
         try {
-            response = studentService.list(locale);
+            response = studentService.list(filter, pagination);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
             return response;

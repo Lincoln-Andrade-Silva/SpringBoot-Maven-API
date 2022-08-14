@@ -4,6 +4,11 @@ import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.domain.entity.Student;
 import com.api.application.core.mapper.classroom.ClassroomMapper;
+import com.api.application.core.utils.core.responses.DataListResponse;
+import org.springframework.data.domain.Page;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudentMapper {
     private StudentMapper() {
@@ -55,5 +60,29 @@ public class StudentMapper {
         entity.setBirthDate(request.getBirthDate());
 
         return entity;
+    }
+
+    public static DataListResponse<StudentResponse> createDataListResponseFromPage(Page<Student> studentsPage) {
+
+        DataListResponse<StudentResponse> dataListResponse = new DataListResponse<>();
+        List<StudentResponse> studentResponses = new ArrayList<>();
+
+        for (Student student : studentsPage) {
+            StudentResponse studentResponse = new StudentResponse();
+
+            studentResponse.setId(student.getId());
+            studentResponse.setName(student.getName());
+            studentResponse.setLastName(student.getLastName());
+            studentResponse.setBirthDate(student.getBirthDate());
+            studentResponse.setClassroom(ClassroomMapper.createClassroomDtoFromEntity(student.getClassroom()));
+
+            studentResponses.add(studentResponse);
+        }
+
+        dataListResponse.setTotalData(studentsPage.getTotalElements());
+        dataListResponse.setTotalPages(studentsPage.getTotalPages());
+        dataListResponse.setData(studentResponses);
+
+        return dataListResponse;
     }
 }
