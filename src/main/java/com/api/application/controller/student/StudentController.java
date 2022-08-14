@@ -3,17 +3,17 @@ package com.api.application.controller.student;
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.service.student.StudentService;
-import com.api.application.utils.core.responses.DataListResponse;
-import com.api.application.utils.core.responses.DataResponse;
-import com.api.application.utils.core.resquests.DataRequest;
-import com.api.application.utils.exeption.ApplicationBusinessException;
+import com.api.application.core.utils.core.responses.DataListResponse;
+import com.api.application.core.utils.core.responses.DataResponse;
+import com.api.application.core.utils.core.resquests.DataRequest;
+import com.api.application.core.utils.exeption.ApplicationBusinessException;
 import com.api.application.core.commons.DomainReturnCode;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
+import java.text.ParseException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -28,8 +28,8 @@ public class StudentController {
     StudentService studentService;
 
     @Operation(
-            summary = "Get Student by Id",
-            description = "Get Student by Id"
+            summary = "List Students",
+            description = "List Students"
     )
     @GetMapping(
             value = ""
@@ -49,7 +49,7 @@ public class StudentController {
 
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
-            response.setSeverity(LOW);
+            response.setSeverity(MODERATE);
             servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
 
@@ -114,11 +114,11 @@ public class StudentController {
 
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
-            response.setSeverity(MODERATE);
+            response.setSeverity(VERY_HIGH);
             servletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-        }
 
-        return response;
+            return response;
+        }
     }
 
     @Operation(
@@ -148,5 +148,35 @@ public class StudentController {
         }
 
         return response;
+    }
+
+    @Operation(
+            summary = "Edit Student",
+            description = "Edit a Student"
+    )
+    @PatchMapping(value = "/edit/{id}")
+    public DataResponse<StudentResponse> edit(
+            @PathVariable(value = "id") Long id,
+            @RequestBody StudentRequest bodyRequest,
+            @RequestHeader(name = "locale") String locale,
+            HttpServletResponse servletResponse
+    ) {
+
+        DataResponse<StudentResponse> response = new DataResponse<>();
+
+        try {
+            response = studentService.edit(bodyRequest, id, locale);
+            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+            servletResponse.setStatus(HttpServletResponse.SC_OK);
+
+            return response;
+
+        } catch (ApplicationBusinessException error) {
+            response.setResponse(error);
+            response.setSeverity(HIGH);
+            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+
+            return response;
+        }
     }
 }

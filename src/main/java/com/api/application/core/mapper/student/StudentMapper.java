@@ -20,8 +20,7 @@ public class StudentMapper {
         student.setName(request.getName());
         student.setLastName(request.getLastName());
         student.setBirthDate(request.getBirthDate());
-        student.setClassroom(ClassroomMapper
-                .createClassroomFromDTO(request.getClassroom()));
+        student.setClassroom(ClassroomMapper.createClassroomFromDTO(request.getClassroom()));
 
         return student;
     }
@@ -49,4 +48,12 @@ public class StudentMapper {
         return response;
     }
 
+    public static Student editStudent(Student entity, StudentRequest request) {
+        entity.setName(request.getName());
+        entity.setLastName(request.getLastName());
+        entity.setClassroom(ClassroomMapper.createClassroomFromDTO(request.getClassroom()));
+        entity.setBirthDate(request.getBirthDate());
+
+        return entity;
+    }
 }

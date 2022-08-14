@@ -1,4 +1,4 @@
-package com.api.application.utils.returns;
+package com.api.application.core.utils.returns;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;

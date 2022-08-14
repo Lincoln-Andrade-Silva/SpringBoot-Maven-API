@@ -3,7 +3,7 @@ package com.api.application.core.domain.validator;
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.commons.DomainReturnCode;
 import com.api.application.core.domain.entity.Student;
-import com.api.application.utils.exeption.ApplicationBusinessException;
+import com.api.application.core.utils.exeption.ApplicationBusinessException;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.api.application.utils.core.resquests;
+package com.api.application.core.utils.core.resquests;
 
 public class DataRequest<T> extends Request {
     private static final long serialVersionUID = -9199226445117528353L;

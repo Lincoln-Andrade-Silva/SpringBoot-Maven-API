@@ -1,6 +1,6 @@
-package com.api.application.utils.core.responses;
+package com.api.application.core.utils.core.responses;
 
-import com.api.application.utils.exeption.ApplicationBusinessException;
+import com.api.application.core.utils.exeption.ApplicationBusinessException;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.*;

@@ -1,4 +1,4 @@
-package com.api.application.utils.core.responses;
+package com.api.application.core.utils.core.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 

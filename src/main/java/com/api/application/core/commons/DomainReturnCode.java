@@ -1,7 +1,7 @@
 package com.api.application.core.commons;
 
-import com.api.application.utils.returns.IDomainReturnCode;
-import com.api.application.utils.returns.InternationalizationUtil;
+import com.api.application.core.utils.returns.IDomainReturnCode;
+import com.api.application.core.utils.returns.InternationalizationUtil;
 import org.springframework.context.MessageSource;
 
 public enum DomainReturnCode implements IDomainReturnCode {

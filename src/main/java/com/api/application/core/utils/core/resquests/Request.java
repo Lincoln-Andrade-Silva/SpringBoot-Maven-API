@@ -1,4 +1,4 @@
-package com.api.application.utils.core.resquests;
+package com.api.application.core.utils.core.resquests;
 
 import java.io.Serializable;
 

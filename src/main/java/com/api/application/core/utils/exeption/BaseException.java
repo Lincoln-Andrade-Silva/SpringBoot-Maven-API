@@ -1,4 +1,4 @@
-package com.api.application.utils.exeption;
+package com.api.application.core.utils.exeption;
 
 import javax.print.attribute.standard.Severity;
 import java.io.Serial;
