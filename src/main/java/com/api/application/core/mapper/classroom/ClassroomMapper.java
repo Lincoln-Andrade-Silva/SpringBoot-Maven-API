@@ -16,6 +16,13 @@ public class ClassroomMapper {
 
     public static Classroom createClassroomFromDTO(ClassroomDTO classroomDTO){
         Classroom classroom = new Classroom();
+        classroom.setClassCode(classroomDTO.getClassCode());
+
+        return classroom;
+    }
+
+    public static Classroom createClassroomFromDTOWithId(ClassroomDTO classroomDTO) {
+        Classroom classroom = new Classroom();
         classroom.setId(classroomDTO.getId());
         classroom.setClassCode(classroomDTO.getClassCode());
 

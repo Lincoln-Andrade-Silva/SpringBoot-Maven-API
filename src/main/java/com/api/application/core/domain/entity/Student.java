@@ -13,27 +13,47 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="tb_student")
+@Table(name = "tb_student")
 @Where(clause = "deleted=false")
 public class Student implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name="last_name", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name="birth_date", nullable = false)
+    @Column(name = "birth_date", nullable = false)
     private Date birthDate;
 
     @ManyToOne(targetEntity = Classroom.class)
-    @JoinColumn(name="classroom_id", nullable = false)
+    @JoinColumn(name = "classroom_id", nullable = false)
     private Classroom classroom;
 
     @Column(name = "deleted", nullable = false)
     private Boolean deleted = false;
+
+    public enum Fields {
+        ID("id"), NAME("name"), LASTNAME("lastName"), BIRTHDATE("birthDate"), CLASSROOM("classroom");
+
+        private String field;
+
+        private Fields(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return this.field;
+        }
+    }
+
+    public Student(Long id) {
+        this.id = id;
+    }
 }
