@@ -8,6 +8,7 @@ public class BaseException extends Exception {
 
     @Serial
     private static final long serialVersionUID = 2594220962674232227L;
+    protected int httpCode;
     protected String message;
     protected String input;
     private Severity severity;
@@ -24,6 +25,13 @@ public class BaseException extends Exception {
         this.setMessage(strMessage);
     }
 
+    protected BaseException(int httpCode, String strMessage) {
+        super(strMessage);
+        this.setHttpCode(httpCode);
+        this.setMessage(strMessage);
+        this.severity = Severity.ERROR;
+    }
+
     protected BaseException(String strCode, String strMessage, String input) {
         super(strCode);
         this.severity = Severity.ERROR;
@@ -33,9 +41,10 @@ public class BaseException extends Exception {
 
     public BaseException(String strCode, String strMessage, Object... params) {
         super(strCode);
-        this.severity = Severity.ERROR;
+        this.setParameters(params);
         this.setParameters(params);
         this.setMessage(strMessage);
+        this.severity = Severity.ERROR;
     }
 
     public String getMessage() {
@@ -74,4 +83,8 @@ public class BaseException extends Exception {
     public void setInput(String input) {
         this.input = input;
     }
+
+    public int getHttpCode() { return httpCode; }
+
+    public void setHttpCode(int httpCode) { this.httpCode = httpCode; }
 }

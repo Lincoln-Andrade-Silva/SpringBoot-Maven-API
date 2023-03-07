@@ -33,14 +33,13 @@ public class ClassroomController {
             value = ""
     )
     public DataListResponse<ClassroomDTO> list(
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
         DataListResponse<ClassroomDTO> response = new DataListResponse<>();
 
         try {
-            response = classroomService.list(locale);
+            response = classroomService.list();
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
             return response;
@@ -48,10 +47,9 @@ public class ClassroomController {
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(MODERATE);
-            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            servletResponse.setStatus(error.getHttpCode());
+            return response;
         }
-
-        return response;
     }
 
 
@@ -64,14 +62,13 @@ public class ClassroomController {
     )
     public DataResponse<ClassroomDTO> get(
             @PathVariable(value = "id") Long id,
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
         DataResponse<ClassroomDTO> response = new DataResponse<>();
 
         try {
-            response = classroomService.getClassroomById(id, locale);
+            response = classroomService.getClassroomById(id);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
             return response;
@@ -79,10 +76,9 @@ public class ClassroomController {
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(LOW);
-            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            servletResponse.setStatus(error.getHttpCode());
+            return response;
         }
-
-        return response;
     }
 
     @Operation(
@@ -96,25 +92,22 @@ public class ClassroomController {
     )
     public DataResponse<ClassroomDTO> create(
             @RequestBody ClassroomDTO bodyRequest,
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
-        DataRequest<ClassroomDTO> request = new DataRequest<>(bodyRequest, locale);
+        DataRequest<ClassroomDTO> request = new DataRequest<>(bodyRequest);
         DataResponse<ClassroomDTO> response = new DataResponse<>();
 
         try {
-            response = classroomService.createClassroom(request, locale);
+            response = classroomService.createClassroom(request);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
-
             return response;
 
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(VERY_HIGH);
-            servletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
+            servletResponse.setStatus(error.getHttpCode());
             return response;
         }
     }

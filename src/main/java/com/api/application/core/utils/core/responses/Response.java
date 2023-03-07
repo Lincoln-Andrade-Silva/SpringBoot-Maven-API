@@ -10,10 +10,10 @@ public class Response implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 8927944169026414109L;
-    private String message;
-    private String severity;
     private String input;
+    private String message;
     private String version;
+    private String severity;
 
     public Response() {
     }

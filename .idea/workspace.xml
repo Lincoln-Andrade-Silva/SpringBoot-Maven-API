@@ -5,10 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3a3d6fb0-11e9-469c-a1f8-3ef5d3e8d4c6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/domain/entity/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/domain/entity/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/controller/classroom/ClassroomController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/controller/classroom/ClassroomController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/controller/student/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/controller/student/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/commons/DomainReturnCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/commons/DomainReturnCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/domain/validator/ClassroomValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/domain/validator/ClassroomValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/domain/validator/StudentValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/domain/validator/StudentValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/mapper/student/StudentMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/mapper/student/StudentMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/persistance/repository/student/StudentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/persistance/repository/student/StudentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/service/classroom/ClassroomService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/service/classroom/ClassroomService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/service/student/StudentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/service/student/StudentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/responses/DataListResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/responses/DataListResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/responses/DataResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/responses/DataResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/responses/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/responses/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/resquests/DataRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/resquests/DataRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/resquests/FilterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/core/resquests/FilterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/exeption/ApplicationBusinessException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/exeption/ApplicationBusinessException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/exeption/BaseException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/exeption/BaseException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/returns/IDomainReturnCode.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/api/application/core/utils/returns/InternationalizationUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,25 +50,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/Projects/Workspace IntelliJ/SpringBoot-Maven-API&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;d9d2656ce7886fb266d17e1fa133dfda&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "D:/Projects/Workspace Facul/Projeto-API-Gatway-Microservices",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "spring.configuration.checksum": "d9d2656ce7886fb266d17e1fa133dfda"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.api.application.core.persistance.repository.student" />
@@ -114,7 +129,18 @@
       <workItem from="1660223538120" duration="12049000" />
       <workItem from="1660257863867" duration="532000" />
       <workItem from="1660263793658" duration="3638000" />
-      <workItem from="1660489610799" duration="9889000" />
+      <workItem from="1660489610799" duration="11894000" />
+      <workItem from="1660504946618" duration="633000" />
+      <workItem from="1660518142044" duration="99000" />
+      <workItem from="1660519660915" duration="32000" />
+      <workItem from="1664644803645" duration="298000" />
+      <workItem from="1666043483680" duration="5860000" />
+      <workItem from="1666632125568" duration="838000" />
+      <workItem from="1666645338345" duration="16000" />
+      <workItem from="1667767775040" duration="1396000" />
+      <workItem from="1667769782662" duration="1141000" />
+      <workItem from="1667865758600" duration="15000" />
+      <workItem from="1678224098070" duration="2984000" />
     </task>
     <servers />
   </component>
@@ -143,11 +169,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/api/application/core/mapper/classroom/ClassroomMapper.java</url>
           <line>17</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/api/application/core/service/classroom/ClassroomService.java</url>
-          <line>67</line>
-          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

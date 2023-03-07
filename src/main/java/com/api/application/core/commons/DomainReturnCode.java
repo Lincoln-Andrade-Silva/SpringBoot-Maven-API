@@ -1,10 +1,8 @@
 package com.api.application.core.commons;
 
-import com.api.application.core.utils.returns.IDomainReturnCode;
-import com.api.application.core.utils.returns.InternationalizationUtil;
 import org.springframework.context.MessageSource;
 
-public enum DomainReturnCode implements IDomainReturnCode {
+public enum DomainReturnCode {
 
     /*
         Operations
@@ -32,19 +30,13 @@ public enum DomainReturnCode implements IDomainReturnCode {
     CLASSROOM_NOT_FOUND("Classroom not found in database"),
     CLASSROOM_EXISTS("Class code must be unique");
 
-    private final String desc;
+    private final String description;
 
     DomainReturnCode(String value) {
-        desc = value;
+        description = value;
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
-
-    @Override
-    public String getTranslatedDescription(MessageSource messageSource, String locale) {
-        return InternationalizationUtil.getMessage(messageSource, getDesc(), locale);
-    }
-
 }

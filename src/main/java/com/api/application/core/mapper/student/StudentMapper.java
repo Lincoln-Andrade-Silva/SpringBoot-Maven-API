@@ -53,13 +53,11 @@ public class StudentMapper {
         return response;
     }
 
-    public static Student editStudent(Student entity, StudentRequest request) {
+    public static void editStudent(Student entity, StudentRequest request) {
         entity.setName(request.getName());
         entity.setLastName(request.getLastName());
         entity.setClassroom(ClassroomMapper.createClassroomFromDTO(request.getClassroom()));
         entity.setBirthDate(request.getBirthDate());
-
-        return entity;
     }
 
     public static DataListResponse<StudentResponse> createDataListResponseFromPage(Page<Student> studentsPage) {

@@ -18,4 +18,8 @@ public class ApplicationBusinessException extends BaseException {
     public ApplicationBusinessException(String strCode, String strMessage, Object... params) {
         super(strCode, strMessage, params);
     }
+
+    public ApplicationBusinessException(int httpCode, String strMessage) {
+        super(httpCode, strMessage);
+    }
 }

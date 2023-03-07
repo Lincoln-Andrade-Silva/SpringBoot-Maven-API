@@ -1,41 +1,31 @@
 package com.api.application.core.utils.core.resquests;
 
-import java.io.UnsupportedEncodingException;
+import java.io.Serial;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
 public class FilterRequest<T> extends Request {
+    @Serial
     private static final long serialVersionUID = 4754856071150007342L;
     private String strSearch;
     private T data;
 
-    public FilterRequest(String strSearch, String locale) {
+    public FilterRequest(String strSearch) {
         if (strSearch != null) {
-            try {
-                this.strSearch = URLDecoder.decode(strSearch, StandardCharsets.UTF_8.toString());
-            } catch (UnsupportedEncodingException var4) {
-                var4.printStackTrace();
-            }
+            this.strSearch = URLDecoder.decode(strSearch, StandardCharsets.UTF_8);
         } else {
             this.strSearch = "";
         }
-
-        this.setLocale(locale);
     }
 
-    public FilterRequest(String strSearch, String locale, String authorization) {
+    public FilterRequest(String strSearch, String locale) {
         if (strSearch != null) {
-            try {
-                this.strSearch = URLDecoder.decode(strSearch, StandardCharsets.UTF_8.toString());
-            } catch (UnsupportedEncodingException var5) {
-                var5.printStackTrace();
-            }
+            this.strSearch = URLDecoder.decode(strSearch, StandardCharsets.UTF_8);
         } else {
             this.strSearch = "";
         }
 
         this.setLocale(locale);
-        //this.setAuthorization(authorization);
     }
 
     public String getStrSearch() {

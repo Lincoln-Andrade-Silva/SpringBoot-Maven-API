@@ -1,5 +1,6 @@
 package com.api.application.controller.student;
 
+import com.api.application.core.commons.DomainReturnCode;
 import com.api.application.core.domain.dto.student.StudentFilterRequest;
 import com.api.application.core.domain.dto.student.StudentRequest;
 import com.api.application.core.domain.dto.student.StudentResponse;
@@ -10,13 +11,11 @@ import com.api.application.core.utils.core.resquests.DataRequest;
 import com.api.application.core.utils.core.resquests.FilterRequest;
 import com.api.application.core.utils.core.resquests.PaginationRequest;
 import com.api.application.core.utils.exeption.ApplicationBusinessException;
-import com.api.application.core.commons.DomainReturnCode;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.text.ParseException;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -38,7 +37,6 @@ public class StudentController {
             value = ""
     )
     public DataListResponse<StudentResponse> list(
-            @RequestHeader(name = "locale") String locale,
             @RequestParam(name = "strSearch", required = false) String strSearch,
             @RequestParam(name = "page", required = false) Integer page,
             @RequestParam(name = "pageSize", required = false) Integer pageSize,
@@ -49,7 +47,7 @@ public class StudentController {
 
         DataListResponse<StudentResponse> response = new DataListResponse<>();
 
-        FilterRequest<StudentFilterRequest> filter = new FilterRequest<>(strSearch, locale);
+        FilterRequest<StudentFilterRequest> filter = new FilterRequest<>(strSearch);
         StudentFilterRequest pricingFilterRequest = new StudentFilterRequest();
         filter.setData(pricingFilterRequest);
 
@@ -64,10 +62,10 @@ public class StudentController {
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(MODERATE);
-            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
+            servletResponse.setStatus(error.getHttpCode());
 
-        return response;
+            return response;
+        }
     }
 
 
@@ -80,14 +78,13 @@ public class StudentController {
     )
     public DataResponse<StudentResponse> get(
             @PathVariable(value = "id") Long id,
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
         DataResponse<StudentResponse> response = new DataResponse<>();
 
         try {
-            response = studentService.getStudentById(id, locale);
+            response = studentService.getStudentById(id);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
             return response;
@@ -95,10 +92,9 @@ public class StudentController {
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(LOW);
-            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            servletResponse.setStatus(error.getHttpCode());
+            return response;
         }
-
-        return response;
     }
 
     @Operation(
@@ -112,25 +108,22 @@ public class StudentController {
     )
     public DataResponse<StudentResponse> create(
             @RequestBody StudentRequest bodyRequest,
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
-        DataRequest<StudentRequest> request = new DataRequest<>(bodyRequest, locale);
+        DataRequest<StudentRequest> request = new DataRequest<>(bodyRequest);
         DataResponse<StudentResponse> response = new DataResponse<>();
 
         try {
-            response = studentService.createStudent(request, locale);
+            response = studentService.createStudent(request);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
-
             return response;
 
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(VERY_HIGH);
-            servletResponse.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-
+            servletResponse.setStatus(error.getHttpCode());
             return response;
         }
     }
@@ -142,26 +135,23 @@ public class StudentController {
     @DeleteMapping(value = "/delete/{id}")
     public DataResponse<StudentResponse> delete(
             @PathVariable(value = "id") Long id,
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
         DataResponse<StudentResponse> response = new DataResponse<>();
 
         try {
-            response = studentService.deleteStudent(id, locale);
+            response = studentService.deleteStudent(id);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
-
             return response;
 
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(LOW);
-            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            servletResponse.setStatus(error.getHttpCode());
+            return response;
         }
-
-        return response;
     }
 
     @Operation(
@@ -172,24 +162,21 @@ public class StudentController {
     public DataResponse<StudentResponse> edit(
             @PathVariable(value = "id") Long id,
             @RequestBody StudentRequest bodyRequest,
-            @RequestHeader(name = "locale") String locale,
             HttpServletResponse servletResponse
     ) {
 
         DataResponse<StudentResponse> response = new DataResponse<>();
 
         try {
-            response = studentService.edit(bodyRequest, id, locale);
+            response = studentService.edit(bodyRequest, id);
             response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
             servletResponse.setStatus(HttpServletResponse.SC_OK);
-
             return response;
 
         } catch (ApplicationBusinessException error) {
             response.setResponse(error);
             response.setSeverity(HIGH);
-            servletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
-
+            servletResponse.setStatus(error.getHttpCode());
             return response;
         }
     }

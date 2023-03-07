@@ -1,20 +1,14 @@
 package com.api.application.core.service.classroom;
 
 import com.api.application.core.domain.dto.classroom.ClassroomDTO;
-import com.api.application.core.domain.dto.student.StudentRequest;
-import com.api.application.core.domain.dto.student.StudentResponse;
 import com.api.application.core.domain.entity.Classroom;
-import com.api.application.core.domain.entity.Student;
 import com.api.application.core.domain.validator.ClassroomValidator;
-import com.api.application.core.domain.validator.StudentValidator;
 import com.api.application.core.mapper.classroom.ClassroomMapper;
-import com.api.application.core.mapper.student.StudentMapper;
 import com.api.application.core.persistance.repository.classroom.ClassroomRepository;
 import com.api.application.core.utils.core.responses.DataListResponse;
 import com.api.application.core.utils.core.responses.DataResponse;
 import com.api.application.core.utils.core.resquests.DataRequest;
 import com.api.application.core.utils.exeption.ApplicationBusinessException;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,19 +19,17 @@ import java.util.Optional;
 public class ClassroomService {
 
     private final ClassroomRepository classroomRepository;
-    private final MessageSource messageSource;
 
-    public ClassroomService(ClassroomRepository classroomRepository, MessageSource messageSource) {
+    public ClassroomService(ClassroomRepository classroomRepository) {
         this.classroomRepository = classroomRepository;
-        this.messageSource = messageSource;
     }
 
-    public DataListResponse<ClassroomDTO> list(String locale) throws ApplicationBusinessException {
+    public DataListResponse<ClassroomDTO> list() throws ApplicationBusinessException {
         DataListResponse<ClassroomDTO> dataResponses = new DataListResponse<>();
         List<ClassroomDTO> classroomDTOS = new ArrayList<>();
 
         List<Classroom> classrooms = classroomRepository.findAll();
-        ClassroomValidator.validateList(classrooms, messageSource, locale);
+        ClassroomValidator.validateList(classrooms);
 
         for (Classroom classroom : classrooms) {
             ClassroomDTO classroomDTO = ClassroomMapper.createClassroomDtoFromEntity(classroom);
@@ -49,12 +41,12 @@ public class ClassroomService {
         return dataResponses;
     }
 
-    public DataResponse<ClassroomDTO> getClassroomById(Long id, String locale) throws ApplicationBusinessException {
+    public DataResponse<ClassroomDTO> getClassroomById(Long id) throws ApplicationBusinessException {
 
         DataResponse<ClassroomDTO> dataResponse = new DataResponse<>();
 
         Optional<Classroom> optionalClassroom = classroomRepository.findById(id);
-        Classroom classroom = ClassroomValidator.validateOptional(optionalClassroom, messageSource, locale);
+        Classroom classroom = ClassroomValidator.validateOptional(optionalClassroom);
 
         ClassroomDTO classroomDTO = ClassroomMapper.createClassroomDtoFromEntity(classroom);
         dataResponse.setData(classroomDTO);
@@ -62,15 +54,15 @@ public class ClassroomService {
         return dataResponse;
     }
 
-    public DataResponse<ClassroomDTO> createClassroom(DataRequest<ClassroomDTO> request, String locale)
+    public DataResponse<ClassroomDTO> createClassroom(DataRequest<ClassroomDTO> request)
             throws ApplicationBusinessException {
 
         DataResponse<ClassroomDTO> dataResponse = new DataResponse<>();
 
-        ClassroomValidator.validateClassroomDTO(request.getData(), messageSource, locale);
+        ClassroomValidator.validateClassroomDTO(request.getData());
 
         List<Classroom> classroomFromDB = classroomRepository.findByClassCode(request.getData().getClassCode());
-        ClassroomValidator.validateNameClassroomExists(classroomFromDB, messageSource, locale);
+        ClassroomValidator.validateNameClassroomExists(classroomFromDB);
 
         Classroom classroom = ClassroomMapper.createClassroomFromDTO(request.getData());
 

@@ -2,10 +2,12 @@ package com.api.application.core.utils.core.responses;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import java.io.Serial;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataListResponse<T> extends Response {
+    @Serial
     private static final long serialVersionUID = -9024022837229919768L;
 
     private List<T> data;

@@ -17,7 +17,6 @@ import com.api.application.core.utils.core.resquests.DataRequest;
 import com.api.application.core.utils.core.resquests.FilterRequest;
 import com.api.application.core.utils.core.resquests.PaginationRequest;
 import com.api.application.core.utils.exeption.ApplicationBusinessException;
-import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -32,13 +31,11 @@ public class StudentService {
 
     private final StudentCriteriaRepository studentCriteriaRepository;
 
-    private final MessageSource messageSource;
-
-    public StudentService(StudentRepository studentRepository, ClassroomRepository classroomRepository, StudentCriteriaRepository studentCriteriaRepository, MessageSource messageSource) {
+    public StudentService(StudentRepository studentRepository, ClassroomRepository classroomRepository,
+                          StudentCriteriaRepository studentCriteriaRepository) {
         this.studentRepository = studentRepository;
         this.classroomRepository = classroomRepository;
         this.studentCriteriaRepository = studentCriteriaRepository;
-        this.messageSource = messageSource;
     }
 
 
@@ -49,12 +46,12 @@ public class StudentService {
         return StudentMapper.createDataListResponseFromPage(pricingListPage);
     }
 
-    public DataResponse<StudentResponse> getStudentById(Long id, String locale) throws ApplicationBusinessException {
+    public DataResponse<StudentResponse> getStudentById(Long id) throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
         Optional<Student> optionalStudent = studentRepository.findById(id);
-        Student student = StudentValidator.validateOptional(optionalStudent, messageSource, locale);
+        Student student = StudentValidator.validateOptional(optionalStudent);
 
         StudentResponse studentResponse = StudentMapper.createStudentResponseFromEntity(student);
         dataResponse.setData(studentResponse);
@@ -62,19 +59,18 @@ public class StudentService {
         return dataResponse;
     }
 
-    public DataResponse<StudentResponse> createStudent(DataRequest<StudentRequest> request, String locale)
+    public DataResponse<StudentResponse> createStudent(DataRequest<StudentRequest> request)
             throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
-        StudentValidator.validateStudentRequest(request.getData(), messageSource, locale);
+        StudentValidator.validateStudentRequest(request.getData());
 
         List<Student> studentFromDB = studentRepository.findByStudent(request.getData().getName(), request.getData().getLastName());
-        StudentValidator.validateStudentExists(studentFromDB, messageSource, locale);
+        StudentValidator.validateStudentExists(studentFromDB);
 
         Optional<Classroom> classroomFromDB = classroomRepository.findById(request.getData().getClassroom().getId());
-        Classroom classroom = ClassroomValidator.validateOptional(classroomFromDB, messageSource, locale);
-
+        ClassroomValidator.validateOptional(classroomFromDB);
 
         Student student = StudentMapper.createStudentFromRequest(request.getData());
         studentRepository.save(student);
@@ -85,13 +81,13 @@ public class StudentService {
         return dataResponse;
     }
 
-    public DataResponse<StudentResponse> deleteStudent(Long id, String locale)
+    public DataResponse<StudentResponse> deleteStudent(Long id)
             throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
         Optional<Student> optionalStudent = studentRepository.findById(id);
-        Student entity = StudentValidator.validateOptional(optionalStudent, messageSource, locale);
+        Student entity = StudentValidator.validateOptional(optionalStudent);
         Student student = StudentMapper.deleteStudent(entity);
         studentRepository.save(student);
         StudentResponse response = StudentMapper.createStudentResponseFromEntity(student);
@@ -101,15 +97,15 @@ public class StudentService {
         return dataResponse;
     }
 
-    public DataResponse<StudentResponse> edit(StudentRequest request, Long id, String locale)
+    public DataResponse<StudentResponse> edit(StudentRequest request, Long id)
             throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
-        StudentValidator.validateStudentRequest(request, messageSource, locale);
+        StudentValidator.validateStudentRequest(request);
 
         Optional<Student> optionalStudent = studentRepository.findById(id);
-        Student entity = StudentValidator.validateOptional(optionalStudent, messageSource, locale);
+        Student entity = StudentValidator.validateOptional(optionalStudent);
 
         StudentMapper.editStudent(entity, request);
         studentRepository.save(entity);
