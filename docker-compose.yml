@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   spring-boot-maven-api:
-    image: postgres
+    image: postgres:14.1-alpine
     container_name: spring-boot-maven-api
     restart: always
     environment:
@@ -11,4 +11,4 @@ services:
     ports:
       - '5441:5432'
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - ./tmp/db:/var/lib/postgresql/data
