@@ -6,15 +6,14 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Getter
-@Setter
+@Data
 @Entity
-@ToString
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-@Table(name="tb_classroom")
+@AllArgsConstructor
+@Table(name = "tb_classroom")
 @Where(clause = "deleted=false")
-public class Classroom  implements Serializable {
+public class Classroom implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +24,21 @@ public class Classroom  implements Serializable {
     private String classCode;
 
     @Column(name = "deleted", nullable = false)
-    private Boolean deleted = false;
+    private boolean deleted = false;
+
+    public enum Fields {
+        ID("id"), CLASS_CODE("classCode");
+
+        private final String field;
+
+        Fields(String field) {
+            this.field = field;
+        }
+
+        @Override
+        public String toString() {
+            return this.field;
+        }
+    }
 }
 

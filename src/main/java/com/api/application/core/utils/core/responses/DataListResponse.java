@@ -7,6 +7,7 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DataListResponse<T> extends Response {
+
     @Serial
     private static final long serialVersionUID = -9024022837229919768L;
 
@@ -15,10 +16,6 @@ public class DataListResponse<T> extends Response {
     private Long totalData = 0L;
 
     public DataListResponse() {}
-
-    public DataListResponse(String version) {
-        this.setVersion(version);
-    }
 
     public List<T> getData() {
         return data;

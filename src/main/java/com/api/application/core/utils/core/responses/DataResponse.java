@@ -14,10 +14,6 @@ public class DataResponse<T> extends Response {
     public DataResponse() {
     }
 
-    public DataResponse(String version) {
-        this.setVersion(version);
-    }
-
     public T getData() {
         return this.data;
     }

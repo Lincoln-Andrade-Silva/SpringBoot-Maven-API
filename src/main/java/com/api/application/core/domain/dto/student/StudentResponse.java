@@ -1,15 +1,13 @@
 package com.api.application.core.domain.dto.student;
 
 import com.api.application.core.domain.dto.classroom.ClassroomDTO;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Builder
 public class StudentResponse {
     private Long id;
 
@@ -17,7 +15,7 @@ public class StudentResponse {
 
     private String lastName;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private ClassroomDTO classroom;
 }
