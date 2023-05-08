@@ -18,10 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(value = "/classroom")
 public class ClassroomController {
 
-    private static final String LOW = "Low";
-    private static final String MODERATE = "Moderate";
-    private static final String VERY_HIGH = "Very High";
-
     @Autowired
     ClassroomService classroomService;
 
@@ -34,22 +30,13 @@ public class ClassroomController {
     )
     public DataListResponse<ClassroomDTO> list(
             HttpServletResponse servletResponse
-    ) {
+    ) throws ApplicationBusinessException {
 
-        DataListResponse<ClassroomDTO> response = new DataListResponse<>();
-
-        try {
-            response = classroomService.list();
-            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
-            servletResponse.setStatus(HttpServletResponse.SC_OK);
-            return response;
-
-        } catch (ApplicationBusinessException error) {
-            response.setResponse(error);
-            response.setSeverity(MODERATE);
-            servletResponse.setStatus(error.getHttpCode());
-            return response;
-        }
+        DataListResponse<ClassroomDTO> response;
+        response = classroomService.list();
+        response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+        servletResponse.setStatus(HttpServletResponse.SC_OK);
+        return response;
     }
 
 
@@ -63,22 +50,13 @@ public class ClassroomController {
     public DataResponse<ClassroomDTO> get(
             @PathVariable(value = "id") Long id,
             HttpServletResponse servletResponse
-    ) {
+    ) throws ApplicationBusinessException {
 
-        DataResponse<ClassroomDTO> response = new DataResponse<>();
-
-        try {
-            response = classroomService.getClassroomById(id);
-            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
-            servletResponse.setStatus(HttpServletResponse.SC_OK);
-            return response;
-
-        } catch (ApplicationBusinessException error) {
-            response.setResponse(error);
-            response.setSeverity(LOW);
-            servletResponse.setStatus(error.getHttpCode());
-            return response;
-        }
+        DataResponse<ClassroomDTO> response;
+        response = classroomService.getClassroomById(id);
+        response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+        servletResponse.setStatus(HttpServletResponse.SC_OK);
+        return response;
     }
 
     @Operation(
@@ -93,22 +71,13 @@ public class ClassroomController {
     public DataResponse<ClassroomDTO> create(
             @RequestBody ClassroomDTO bodyRequest,
             HttpServletResponse servletResponse
-    ) {
+    ) throws ApplicationBusinessException {
 
         DataRequest<ClassroomDTO> request = new DataRequest<>(bodyRequest);
-        DataResponse<ClassroomDTO> response = new DataResponse<>();
-
-        try {
-            response = classroomService.createClassroom(request);
-            response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
-            servletResponse.setStatus(HttpServletResponse.SC_OK);
-            return response;
-
-        } catch (ApplicationBusinessException error) {
-            response.setResponse(error);
-            response.setSeverity(VERY_HIGH);
-            servletResponse.setStatus(error.getHttpCode());
-            return response;
-        }
+        DataResponse<ClassroomDTO> response;
+        response = classroomService.createClassroom(request);
+        response.setMessage(DomainReturnCode.SUCCESSFUL_OPERATION.getDesc());
+        servletResponse.setStatus(HttpServletResponse.SC_OK);
+        return response;
     }
 }

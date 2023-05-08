@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClassroomService {
+public class ClassroomService implements IClassroomService {
 
     private final ClassroomRepository classroomRepository;
 
@@ -24,6 +24,7 @@ public class ClassroomService {
         this.classroomRepository = classroomRepository;
     }
 
+    @Override
     public DataListResponse<ClassroomDTO> list() throws ApplicationBusinessException {
         DataListResponse<ClassroomDTO> dataResponses = new DataListResponse<>();
         List<ClassroomDTO> classroomDTOS = new ArrayList<>();
@@ -41,6 +42,7 @@ public class ClassroomService {
         return dataResponses;
     }
 
+    @Override
     public DataResponse<ClassroomDTO> getClassroomById(Long id) throws ApplicationBusinessException {
 
         DataResponse<ClassroomDTO> dataResponse = new DataResponse<>();
@@ -54,6 +56,7 @@ public class ClassroomService {
         return dataResponse;
     }
 
+    @Override
     public DataResponse<ClassroomDTO> createClassroom(DataRequest<ClassroomDTO> request)
             throws ApplicationBusinessException {
 

@@ -4,6 +4,7 @@ import com.api.application.core.commons.DomainReturnCode;
 import com.api.application.core.domain.dto.classroom.ClassroomDTO;
 import com.api.application.core.domain.entity.Classroom;
 import com.api.application.core.utils.exeption.ApplicationBusinessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ public class ClassroomValidator {
         if (classrooms.isEmpty()) {
             throw new ApplicationBusinessException(
                     HttpServletResponse.SC_NO_CONTENT,
+                    DomainReturnCode.CLASSROOM_LIST_ARE_EMPTY.toString(),
                     DomainReturnCode.CLASSROOM_LIST_ARE_EMPTY.getDesc()
             );
         }
@@ -33,6 +35,7 @@ public class ClassroomValidator {
         if (optionalClassroom.isEmpty()) {
             throw new ApplicationBusinessException(
                     HttpServletResponse.SC_NOT_FOUND,
+                    DomainReturnCode.CLASSROOM_NOT_FOUND.toString(),
                     DomainReturnCode.CLASSROOM_NOT_FOUND.getDesc()
             );
         } else {
@@ -44,7 +47,8 @@ public class ClassroomValidator {
             throws ApplicationBusinessException {
         if (request.getClassCode() == null) {
             throw new ApplicationBusinessException(
-                    HttpServletResponse.SC_INTERNAL_SERVER_ERROR,
+                    HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                    DomainReturnCode.CLASSROOM_CODE_IS_NULL.toString(),
                     DomainReturnCode.CLASSROOM_CODE_IS_NULL.getDesc()
             );
         }
@@ -56,6 +60,7 @@ public class ClassroomValidator {
         if (!classroomFromDB.isEmpty()) {
             throw new ApplicationBusinessException(
                     HttpServletResponse.SC_BAD_REQUEST,
+                    DomainReturnCode.CLASSROOM_EXISTS.toString(),
                     DomainReturnCode.CLASSROOM_EXISTS.getDesc()
                    );
         }

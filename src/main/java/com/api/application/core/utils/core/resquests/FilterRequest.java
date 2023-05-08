@@ -1,9 +1,14 @@
 package com.api.application.core.utils.core.resquests;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import java.io.Serial;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 public class FilterRequest<T> extends Request {
     @Serial
     private static final long serialVersionUID = 4754856071150007342L;
@@ -26,21 +31,5 @@ public class FilterRequest<T> extends Request {
         }
 
         this.setLocale(locale);
-    }
-
-    public String getStrSearch() {
-        return this.strSearch;
-    }
-
-    public void setStrSearch(String strSearch) {
-        this.strSearch = strSearch;
-    }
-
-    public T getData() {
-        return this.data;
-    }
-
-    public void setData(T data) {
-        this.data = data;
     }
 }

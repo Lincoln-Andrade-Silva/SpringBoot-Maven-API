@@ -1,18 +1,21 @@
 package com.api.application.core.domain.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
-@Getter
-@Setter
+
+@Data
 @Entity
-@ToString
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_student")
 @Where(clause = "deleted=false")
 public class Student implements Serializable {
@@ -29,21 +32,21 @@ public class Student implements Serializable {
     private String lastName;
 
     @Column(name = "birth_date", nullable = false)
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @ManyToOne(targetEntity = Classroom.class)
     @JoinColumn(name = "classroom_id", nullable = false)
     private Classroom classroom;
 
     @Column(name = "deleted", nullable = false)
-    private Boolean deleted = false;
+    private boolean deleted = false;
 
     public enum Fields {
         ID("id"), NAME("name"), LASTNAME("lastName"), BIRTHDATE("birthDate"), CLASSROOM("classroom");
 
-        private String field;
+        private final String field;
 
-        private Fields(String field) {
+        Fields(String field) {
             this.field = field;
         }
 
@@ -51,9 +54,5 @@ public class Student implements Serializable {
         public String toString() {
             return this.field;
         }
-    }
-
-    public Student(Long id) {
-        this.id = id;
     }
 }

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentService {
+public class StudentService implements IStudentService {
     private final StudentRepository studentRepository;
 
     private final ClassroomRepository classroomRepository;
@@ -38,7 +38,7 @@ public class StudentService {
         this.studentCriteriaRepository = studentCriteriaRepository;
     }
 
-
+    @Override
     public DataListResponse<StudentResponse> list(FilterRequest<StudentFilterRequest> filter,
                                                   PaginationRequest pagination) throws ApplicationBusinessException {
         Page<Student> pricingListPage = studentCriteriaRepository.findAllWithFilters(pagination, filter);
@@ -46,6 +46,7 @@ public class StudentService {
         return StudentMapper.createDataListResponseFromPage(pricingListPage);
     }
 
+    @Override
     public DataResponse<StudentResponse> getStudentById(Long id) throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
@@ -59,6 +60,7 @@ public class StudentService {
         return dataResponse;
     }
 
+    @Override
     public DataResponse<StudentResponse> createStudent(DataRequest<StudentRequest> request)
             throws ApplicationBusinessException {
 
@@ -81,8 +83,8 @@ public class StudentService {
         return dataResponse;
     }
 
-    public DataResponse<StudentResponse> deleteStudent(Long id)
-            throws ApplicationBusinessException {
+    @Override
+    public DataResponse<StudentResponse> deleteStudent(Long id) throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
@@ -97,8 +99,8 @@ public class StudentService {
         return dataResponse;
     }
 
-    public DataResponse<StudentResponse> edit(StudentRequest request, Long id)
-            throws ApplicationBusinessException {
+    @Override
+    public DataResponse<StudentResponse> edit(StudentRequest request, Long id) throws ApplicationBusinessException {
 
         DataResponse<StudentResponse> dataResponse = new DataResponse<>();
 
